@@ -48,13 +48,16 @@ Jwt& Jwt::operator=(const Jwt& rhs) {
 
 Status Jwt::parseFromString(const std::string& jwt) {
   // jwt must have exactly 2 dots
+  std::cerr << "==Jwt parsing: " << jwt << std::endl;
   if (std::count(jwt.begin(), jwt.end(), '.') != 2) {
+    std::cerr << "==Jwt: number of dot: " << std::count(jwt.begin(), jwt.end(), '.') << std::endl;
     return Status::JwtBadFormat;
   }
   jwt_ = jwt;
   std::vector<absl::string_view> jwt_split =
       absl::StrSplit(jwt, '.', absl::SkipEmpty());
   if (jwt_split.size() != 3) {
+    std::cerr << "==Jwt: section size: " << jwt_split.size() << std::endl;
     return Status::JwtBadFormat;
   }
 
